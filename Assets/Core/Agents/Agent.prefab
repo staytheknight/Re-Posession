@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6bedfd616946f4e8311c14710e4bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6187942201144502789, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
+  gameplayManager: {fileID: 2500390863614429601, guid: ac09c2ddc0c524c458fe9185dc1aa245, type: 3}
   agent: {fileID: 0}
