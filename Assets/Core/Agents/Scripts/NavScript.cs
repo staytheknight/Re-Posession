@@ -7,6 +7,7 @@ public class NavScript : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent agent;
     Transform playerTransform;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class NavScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Follow the player
         agent.destination = playerTransform.position;
     }
 }

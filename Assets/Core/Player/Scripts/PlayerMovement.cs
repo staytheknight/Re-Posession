@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent agent;
     public new Camera camera;
+    public ControlManager cm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 agent.SetDestination(hitInfo.point);
             }
+        }
+
+        if(cm.DoubleClickDetector())
+        {
+            Debug.Log("Double Clicked!");
         }
     }
 }
