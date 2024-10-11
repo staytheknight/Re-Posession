@@ -6,13 +6,20 @@ using UnityEngine.AI;
 public class NavScript : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent agent;
+    public ObjectReferenceManager orm;
+
     Transform playerTransform;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        getPlayerTransformFromORM();
+    }
+
+    void getPlayerTransformFromORM()
+    {
+        playerTransform = orm.getPlayerTransform();
     }
 
     // Update is called once per frame
