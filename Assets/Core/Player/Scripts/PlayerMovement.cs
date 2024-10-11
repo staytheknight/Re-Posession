@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public new Camera camera;
     public ControlManager cm;
 
+    public GameObject clickLocObject;
+
     bool doubleClickToggle = false;
     public float defaultMovementSpeed = 3.5f;
     public float fasterMovementSpeed = 6.5f;
@@ -30,7 +32,16 @@ public class PlayerMovement : MonoBehaviour
             if(Physics.Raycast(movePosition, out var hitInfo))
             {
                 agent.SetDestination(hitInfo.point);
+                //Debug.Log("Ray: " + hitInfo.point);
+                Instantiate(clickLocObject, hitInfo.point, Quaternion.identity);
             }
+
+            /*
+            // Alternative way to do mouse to screen position, I left this here for debug
+            Vector3 worldPosition = camera.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log("Screen to World: " + worldPosition);
+            */
+            
         }
 
         if(cm.DoubleClickDetector())

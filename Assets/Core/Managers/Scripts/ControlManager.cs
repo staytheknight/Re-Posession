@@ -6,7 +6,7 @@ public class ControlManager : MonoBehaviour
 {   
     float clicked = 0;
     float clickTime = 0;
-    float clickDelay = 0.5f;
+    float clickDelay = 1.0f;
 
     public bool DoubleClickDetector()
     {
