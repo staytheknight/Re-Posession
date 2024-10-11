@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     public new Camera camera;
     public ControlManager cm;
 
+    bool doubleClickToggle = false;
+    public float defaultMovementSpeed = 3.5f;
+    public float fasterMovementSpeed = 6.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +34,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(cm.DoubleClickDetector())
-        {
-            Debug.Log("Double Clicked!");
+        {   
+            // Toggles the double click toggle;
+            doubleClickToggle = !doubleClickToggle;
+
+            // When double click is toggled, move faster
+            if(doubleClickToggle)
+            {
+                agent.speed = fasterMovementSpeed;
+            }
+            else
+            {
+                agent.speed = defaultMovementSpeed;
+            }
         }
     }
 }
