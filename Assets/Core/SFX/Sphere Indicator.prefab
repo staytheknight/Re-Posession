@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6413956241386582999}
   m_Layer: 0
   m_Name: Sphere Indicator
-  m_TagString: Untagged
+  m_TagString: Click Indicator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

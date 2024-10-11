@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Object References
   - Follow Camera
+  - Click Indicator
   layers:
   - Default
   - TransparentFX
