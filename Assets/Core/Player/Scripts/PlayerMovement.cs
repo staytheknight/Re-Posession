@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float defaultMovementSpeed = 3.5f;
     public float fasterMovementSpeed = 6.5f;
 
+    bool singleClick;
+    bool doubleClick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,31 +32,42 @@ public class PlayerMovement : MonoBehaviour
         Physics.Raycast(movePosition, out var hitInfo);
         rayCastPoint = hitInfo.point;
 
-        // If single click is detected
-        if(cm.DoubleClickDetector()[0])
+
+        if (Input.GetMouseButtonDown(0))
         {
+            bool[] clicks = cm.DoubleClickDetector();
+            singleClick = clicks[0];
+            doubleClick = clicks[1];
+        }
+
+        // If single click is detected
+        if(singleClick)
+        {   
             // If double click is detected
-            if(cm.DoubleClickDetector()[1])
+            if(doubleClick)
             {
                 // If there is enough energy to 'move faster'
                 if(em.getSpeedEnergy() > 0)
                 {
-                    Debug.Log("DC!");
+                    //Debug.Log("DC!");
                     fasterMovement();
                     em.toggleSEnergyReduce = true;
                 }
                 else
                 {   
-                    Debug.Log("DC - Not enough energy!");
+                    //Debug.Log("DC - Not enough energy!");
                     defaultMovement();
                 }
             }
             else
             {
-                Debug.Log("Single Click");
+                //Debug.Log("Single Click");
                 defaultMovement();
             }
         }
+
+        singleClick = false;
+        doubleClick = false;
 
     }
 

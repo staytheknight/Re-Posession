@@ -36,7 +36,6 @@ public class ControlManager : MonoBehaviour
                 bReturn[1] = true;
                 return bReturn;
             }
-
             // If clicked more than twice, or the delay is too long, reset clicks
             else if (clicked > 2 || Time.time - clickTime > clickDelay)
             {
