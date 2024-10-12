@@ -7,11 +7,14 @@ public class PlayerMovement : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent agent;
     public new Camera camera;
+    public ObjectReferenceManager orm;
     public ControlManager cm;
     public EnergyManager em;
     public DisplayClickIndicator clickIndicatorScript;
 
     private Vector3 rayCastPoint;
+    private Vector3 target;
+    private float targetRadius = 2.0f;
     public float defaultMovementSpeed = 3.5f;
     public float fasterMovementSpeed = 6.5f;
 
@@ -50,38 +53,39 @@ public class PlayerMovement : MonoBehaviour
                 if(em.getSpeedEnergy() > 0)
                 {
                     //Debug.Log("DC!");
-                    fasterMovement();
-                    em.toggleSEnergyReduce = true;
+                    moveAgent(fasterMovementSpeed, true);
                 }
                 else
                 {   
                     //Debug.Log("DC - Not enough energy!");
-                    defaultMovement();
+                    moveAgent(defaultMovementSpeed, false);
                 }
             }
             else
             {
                 //Debug.Log("Single Click");
-                defaultMovement();
+                moveAgent(defaultMovementSpeed, false);
             }
         }
 
         singleClick = false;
         doubleClick = false;
 
+        // When the player gets close enough to the target position, toggle regenerating energy
+        if (Mathf.Abs(orm.getPlayerTransform().position.x - target.x) <= targetRadius &&
+            Mathf.Abs(orm.getPlayerTransform().position.y - target.y) <= targetRadius)
+        {
+            em.toggleSEnergyReduce = false;
+        }
     }
 
-    private void defaultMovement()
+    private void moveAgent(float movementSpeed, bool doubleClicked)
     {
         agent.SetDestination(rayCastPoint);
-        agent.speed = defaultMovementSpeed;
-        clickIndicatorScript.displayClickIndicator(rayCastPoint, false);
+        target = rayCastPoint;
+        agent.speed = movementSpeed;
+        clickIndicatorScript.displayClickIndicator(rayCastPoint, doubleClicked);
+        em.toggleSEnergyReduce = doubleClicked;
     }
 
-    private void fasterMovement()
-    {
-        agent.SetDestination(rayCastPoint);
-        agent.speed = fasterMovementSpeed;
-        clickIndicatorScript.displayClickIndicator(rayCastPoint, true);
-    }
 }

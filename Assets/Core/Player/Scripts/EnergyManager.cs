@@ -6,6 +6,8 @@ public class EnergyManager : MonoBehaviour
 {
     private float speedEnergy = 1000.0f;
     private float speedEnergyMax = 1000.0f;
+    public float speedEnergyDrainRate = 1.0f;
+    public float speedEnergyGainRate = 0.25f;
     public bool toggleSEnergyReduce = false;
 
 
@@ -13,7 +15,15 @@ public class EnergyManager : MonoBehaviour
     {
         if (speedEnergy > 0)
         {
-            speedEnergy--;
+            speedEnergy -= speedEnergyDrainRate;
+        }
+    }
+
+    public void increaseSpeedEnergy()
+    {
+        if(speedEnergy < speedEnergyMax)
+        {
+            speedEnergy += speedEnergyGainRate;
         }
     }
 
@@ -22,6 +32,10 @@ public class EnergyManager : MonoBehaviour
         if(toggleSEnergyReduce)
         {
             reduceSpeedEnergy();
+        }
+        else
+        {
+            increaseSpeedEnergy();
         }
     }
 
