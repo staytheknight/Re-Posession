@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1070186420196098706}
   - component: {fileID: 184058015927438422}
   - component: {fileID: 2552015265822738639}
+  - component: {fileID: 1282631420731068837}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -165,3 +166,15 @@ MonoBehaviour:
   clickLocObject: {fileID: 5573925812324940558, guid: 2079f4534e062254eba908893d8703c8, type: 3}
   m1: {fileID: 2100000, guid: 7a86b9bf198053440969a45946f5c9a0, type: 2}
   m2: {fileID: 2100000, guid: 2241f0f3e461e21429332c0a6b6d510d, type: 2}
+--- !u!114 &1282631420731068837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498693301607122652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bf25be8bb40614fb98c583fcc24cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

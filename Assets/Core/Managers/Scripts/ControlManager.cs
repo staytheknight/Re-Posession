@@ -6,10 +6,12 @@ public class ControlManager : MonoBehaviour
 {   
     float clicked = 0;
     float clickTime = 0;
-    float clickDelay = 1.0f;
+    float clickDelay = 0.5f;
 
-    public bool DoubleClickDetector()
+    public bool[] DoubleClickDetector()
     {
+        bool[] bReturn = {false, false};
+
         if(Input.GetMouseButtonDown(0))
         {
             // Increment how many times clicked
@@ -19,7 +21,8 @@ public class ControlManager : MonoBehaviour
             {
                 // Capture the time that the first click happened
                 clickTime = Time.time;
-                return false;
+                bReturn[0] = true;
+                return bReturn;
             }
 
             // If clicked more than once, and the time between clicks is lower than click delay
@@ -29,16 +32,19 @@ public class ControlManager : MonoBehaviour
                 clicked = 0;
                 clickTime = 0;
                 // Register double click / do action
-                return true;
+                bReturn[0] = true;
+                bReturn[1] = true;
+                return bReturn;
             }
 
             // If clicked more than twice, or the delay is too long, reset clicks
             else if (clicked > 2 || Time.time - clickTime > clickDelay)
             {
                 clicked = 0;
-                return false;
+                bReturn[0] = true;
+                return bReturn;
             }
         }
-        return false;
+        return bReturn;
     }
 }

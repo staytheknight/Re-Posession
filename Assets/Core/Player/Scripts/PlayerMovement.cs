@@ -8,9 +8,10 @@ public class PlayerMovement : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public new Camera camera;
     public ControlManager cm;
+    public EnergyManager em;
     public DisplayClickIndicator clickIndicatorScript;
 
-    private bool doubleClickToggle = false;
+    private Vector3 rayCastPoint;
     public float defaultMovementSpeed = 3.5f;
     public float fasterMovementSpeed = 6.5f;
 
@@ -23,40 +24,50 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        // Casts a ray from the assigned camera to the mouse position
+        Ray movePosition = camera.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(movePosition, out var hitInfo);
+        rayCastPoint = hitInfo.point;
+
+        // If single click is detected
+        if(cm.DoubleClickDetector()[0])
         {
-            // Casts a ray from the assigned camera to the mouse position
-            Ray movePosition = camera.ScreenPointToRay(Input.mousePosition);
-            // If ray hit
-            if(Physics.Raycast(movePosition, out var hitInfo))
+            // If double click is detected
+            if(cm.DoubleClickDetector()[1])
             {
-                agent.SetDestination(hitInfo.point);
-
-                // calls the click indicator script, gets it to spawn a click indicator and change the colour based
-                // on double click toggle
-                clickIndicatorScript.displayClickIndicator(hitInfo.point, doubleClickToggle);
-            }            
-        }
-
-        if(cm.DoubleClickDetector())
-        {   
-            // Toggles the double click toggle;
-            doubleClickToggle = !doubleClickToggle;
-
-            // When double click is toggled, move faster
-            if(doubleClickToggle)
-            {
-                agent.speed = fasterMovementSpeed;
+                // If there is enough energy to 'move faster'
+                if(em.getSpeedEnergy() > 0)
+                {
+                    Debug.Log("DC!");
+                    fasterMovement();
+                    em.toggleSEnergyReduce = true;
+                }
+                else
+                {   
+                    Debug.Log("DC - Not enough energy!");
+                    defaultMovement();
+                }
             }
             else
             {
-                agent.speed = defaultMovementSpeed;
+                Debug.Log("Single Click");
+                defaultMovement();
             }
         }
+
     }
 
-    bool getDoubleClickToggle()
+    private void defaultMovement()
     {
-        return doubleClickToggle;
+        agent.SetDestination(rayCastPoint);
+        agent.speed = defaultMovementSpeed;
+        clickIndicatorScript.displayClickIndicator(rayCastPoint, false);
+    }
+
+    private void fasterMovement()
+    {
+        agent.SetDestination(rayCastPoint);
+        agent.speed = fasterMovementSpeed;
+        clickIndicatorScript.displayClickIndicator(rayCastPoint, true);
     }
 }
