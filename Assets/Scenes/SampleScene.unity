@@ -1160,6 +1160,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1471248510}
     - target: {fileID: 184058015927438422, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
+      propertyPath: orm
+      value: 
+      objectReference: {fileID: 1845284307}
+    - target: {fileID: 184058015927438422, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 2128067736}

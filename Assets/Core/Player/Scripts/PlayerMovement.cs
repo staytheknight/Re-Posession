@@ -77,6 +77,14 @@ public class PlayerMovement : MonoBehaviour
         {
             em.toggleSEnergyReduce = false;
         }
+
+        // If the player runs out of energy, return to default speed and regen energy
+        if(em.getSpeedEnergy() <= 0)
+        {
+            em.toggleSEnergyReduce = false;
+            agent.speed = defaultMovementSpeed;
+            clickIndicatorScript.displayClickIndicator(target, false);
+        }
     }
 
     private void moveAgent(float movementSpeed, bool doubleClicked)
