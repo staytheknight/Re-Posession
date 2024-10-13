@@ -20,14 +20,20 @@ public class NavScript : MonoBehaviour
     // Movement
     public Vector3 targetDestination;                               // Target destionation for navMesh
     private float targetRadius = 2.0f;                             // Radius around target position the nav mesh agent will considered arrived
+
+    // Stuck checks
+    float stuckCheckInterval = 2.0f;
+    float stuckTimeAccumulator = 0.0f;
+    Vector3 lastCheckedPosition;
     
-    Vector2[] playAreaBoundaries = {new Vector2(-24.0f, 25.0f),new Vector2(-17.0f, 42.0f)};
+    float navMeshHitRadius = 25.0f;                                // Size of radius that agents check around themselves for new destination
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();        // Nav mesh agent
         parentTransform = agent.GetComponentInParent<Transform>();  // Transform of parent that this script is attached to
+        lastCheckedPosition = parentTransform.position;             // initializes last checked position
         targetDestination = parentTransform.position;               // initializes the targetDestination (this should start the agent moving)
         playerTransform = orm.getPlayerTransform();                 // Player object reference
         visionScript = vc.GetComponentInChildren<Vision>();         // Vision script attached to this object (inside of VisionCone)
@@ -52,43 +58,57 @@ public class NavScript : MonoBehaviour
         {
             eyeColourManager.changeLightColour(Color.white);
             
+            // Checks the stuck status of the agent within the stuckCheckInterval
+            stuckTimeAccumulator += Time.deltaTime;
+            if (stuckTimeAccumulator >= stuckCheckInterval)
+            {
+                // If stuck, get a new target point to move to
+                if(checkStuck())
+                {
+                    randomPointOnNavMesh(parentTransform.position);
+                    agent.destination = targetDestination;
+                }
+                stuckTimeAccumulator = 0.0f;
+                lastCheckedPosition = parentTransform.position;
+            }
+
             // If close enough to target, find another target
             if (Mathf.Abs(parentTransform.position.x - targetDestination.x) <= targetRadius &&
                 Mathf.Abs(parentTransform.position.z - targetDestination.z) <= targetRadius)
             {
-                rayCastDown();
+                randomPointOnNavMesh(parentTransform.position);
                 agent.destination = targetDestination;
             }
         }
     }
-    
-    void rayCastDown()
-    {
-        // Ray cast down above the play area, in the range of the play area
-        Vector3 rayStart = new Vector3(0,10,0);
-        Vector3 down = new Vector3(0,-1,0);
-        rayStart.x = Random.Range(playAreaBoundaries[0][0],playAreaBoundaries[0][1]);
-        rayStart.z = Random.Range(playAreaBoundaries[1][0],playAreaBoundaries[1][0]);
-        
-        Physics.Raycast(rayStart, down, out var hitInfo);
 
-        // if there is no collider hit by the ray, try again
-        if(hitInfo.collider == null)
+    // Gets a random point on the navmesh within a radius around the agent
+    // calls the function again if no point was found, sets point as target destination if found
+    void randomPointOnNavMesh(Vector3 center)
+    {
+        Vector3 randomPoint = center + Random.insideUnitSphere * navMeshHitRadius;
+        NavMeshHit hit;
+        if (!NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
         {
-            rayCastDown();
+            randomPointOnNavMesh(center);
         }
         else
-        {   
-            // If the collider hit is NOT the floor, try again
-            if(hitInfo.collider.tag != "Floor")
-            {
-                rayCastDown();
-            }
-            // If the floor was hit, set that as the new target position
-            else
-            {
-                targetDestination = hitInfo.point;
-            }
+        {
+            targetDestination = hit.position;
+        }
+    }
+
+    // Function that returns true if the agent is near it's last checked position
+    bool checkStuck()
+    {   
+        if (Mathf.Abs(parentTransform.position.x - lastCheckedPosition.x) <= targetRadius &&
+            Mathf.Abs(parentTransform.position.z - lastCheckedPosition.z) <= targetRadius)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
