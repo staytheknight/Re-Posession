@@ -11,6 +11,7 @@ public class NavScript : MonoBehaviour
 
     public GameObject vc;
     public Vision visionScript;
+    EyeColourManager eyeColourManager;
 
     Transform playerTransform;                                      // Transform of the player obj
 
@@ -39,6 +40,8 @@ public class NavScript : MonoBehaviour
         targetDestination = parentTransform.position;               // initializes the targetDestination (this should start the agent moving)
         playerTransform = orm.getPlayerTransform();                 // Player object reference
         visionScript = vc.GetComponentInChildren<Vision>();         // Vision script attached to this object (inside of VisionCone)
+
+        eyeColourManager = GetComponent<EyeColourManager>();
     }
 
     // Update is called once per frame
@@ -65,14 +68,16 @@ public class NavScript : MonoBehaviour
         // If the agent can see the player follow them
         if(visionScript.getCanSeeTarget())
         {
+            eyeColourManager.changeLightColour(Color.magenta);
             // Follow the player
             agent.destination = playerTransform.position;
-            targetDestination = playerTransform.position;
+            targetDestination = playerTransform.position;            
         }
         // Otherwise roam
         else
         {
-            autonomousMove();
+            eyeColourManager.changeLightColour(Color.white);
+            autonomousMove();            
         }
     }
 
