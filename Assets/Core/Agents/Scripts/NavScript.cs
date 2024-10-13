@@ -9,34 +9,25 @@ public class NavScript : MonoBehaviour
     public ObjectReferenceManager orm;
     public DisplayClickIndicator clickIndicator;                    // For debug visuals
 
+    // Scripts
     public GameObject vc;
     public Vision visionScript;
     EyeColourManager eyeColourManager;
 
     Transform playerTransform;                                      // Transform of the player obj
-
     Transform parentTransform;                                      // Transform of the obj this script is attached to
+    
+    // Movement
     public Vector3 targetDestination;                               // Target destionation for navMesh
-    private float targetRadius = 10.0f;                             // Radius around target position the nav mesh agent will considered arrived
-    float movementRotationRange = 5.0f;                             // Degree in radians the nav mesh agent will rotate it's raycast
-    bool isStuck = false;                                           // Boolean if the agent is 'stuck' (in the same spot for too long)
-    public Vector3 lastCheckedPos;                                       // The last position the agent was recorded at
-    float stuckTimeCheck = 3.0f;                                    // Time in seconds for how often to check if the agent is stuck
-    float stuckTimeAccumulator = 0.0f;
-    float stuckDistanceThreshold = 3.0f;                            // Distance threshold for considering stuck                    
-
-    // Time management
-    float[] timeToSwitchTurnRange = {5.0f, 7.0f};                   // Range in seconds for the timeToSwitchTurn variable (will be randomized in range)
-    float timeToSwitchTurn = 5.0f;                                  // How much time in seconds before nav mesh agent will switch turning (left or right)
-    float timeSinceLastFrame = 0.0f;                                // Time in seconds since last frame
-    float timeAccumulator = 0.0f;                                   // Frame time accumulator
+    private float targetRadius = 2.0f;                             // Radius around target position the nav mesh agent will considered arrived
+    
+    Vector2[] playAreaBoundaries = {new Vector2(-24.0f, 25.0f),new Vector2(-17.0f, 42.0f)};
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();        // Nav mesh agent
         parentTransform = agent.GetComponentInParent<Transform>();  // Transform of parent that this script is attached to
-        lastCheckedPos = parentTransform.position;
         targetDestination = parentTransform.position;               // initializes the targetDestination (this should start the agent moving)
         playerTransform = orm.getPlayerTransform();                 // Player object reference
         visionScript = vc.GetComponentInChildren<Vision>();         // Vision script attached to this object (inside of VisionCone)
@@ -47,23 +38,6 @@ public class NavScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        // Accumulates times between frames, changes direction once accumulator reaches certain threshold
-        timeAccumulator += Time.time - timeSinceLastFrame;
-        if(timeAccumulator > timeToSwitchTurn)
-        {
-            movementRotationRange *= -1.0f;
-            timeAccumulator = 0.0f;
-            // Gets a random value between the ranges of given seconds - this determines how long before the agent switches it's turn direction
-            timeToSwitchTurn = Random.Range(timeToSwitchTurnRange[0], timeToSwitchTurnRange[1]);
-        }
-
-        stuckTimeAccumulator += Time.time - timeSinceLastFrame;
-        checkStuck(stuckTimeAccumulator);
-
-        timeSinceLastFrame = Time.time;
-
-
 
         // If the agent can see the player follow them
         if(visionScript.getCanSeeTarget())
@@ -77,51 +51,44 @@ public class NavScript : MonoBehaviour
         else
         {
             eyeColourManager.changeLightColour(Color.white);
-            autonomousMove();            
-        }
-    }
-
-    void autonomousMove()
-    {   
-        // If the agent is close enough to its target destination, find a new target
-        if (Mathf.Abs(parentTransform.position.x - targetDestination.x) <= targetRadius &&
-            Mathf.Abs(parentTransform.position.z - targetDestination.z) <= targetRadius)
-        {
-            // Rotate the transform towards a direction in the given range
-            parentTransform.Rotate(0,Random.Range(0, movementRotationRange),0);
-            moveAgent(parentTransform);
-        }
-        else if(isStuck)
-        {   
-            isStuck = false;
-            parentTransform.Rotate(0, 180, 0);
-            moveAgent(parentTransform);            
-        }
-    }
-
-    void moveAgent(Transform pTransform)
-    {
-            // Casts a ray towards that direction with infinite length
-            Physics.Raycast(pTransform.position, pTransform.forward, out var hitInfo);
-            // Move towards point hit by RayCast
-            agent.destination = hitInfo.point;
-            targetDestination = hitInfo.point;
-            //clickIndicator.displayClickIndicator(hitInfo.point, true);   // Debug visual    
-    }
-
-    void checkStuck(float time)
-    {   
-        // Checks stuck every passed seconds vs threshold
-        if (time >= stuckTimeCheck)
-        {   
-            // Stuck is considered if in the same position + threshold since last time checked
-            if (Mathf.Abs(lastCheckedPos.x - parentTransform.position.x) <= stuckDistanceThreshold &&
-                Mathf.Abs(lastCheckedPos.z - parentTransform.position.z) <= stuckDistanceThreshold)
+            
+            // If close enough to target, find another target
+            if (Mathf.Abs(parentTransform.position.x - targetDestination.x) <= targetRadius &&
+                Mathf.Abs(parentTransform.position.z - targetDestination.z) <= targetRadius)
             {
-                isStuck = true;
+                rayCastDown();
+                agent.destination = targetDestination;
             }
-            lastCheckedPos = parentTransform.position;
-            stuckTimeAccumulator = 0.0f;
+        }
+    }
+    
+    void rayCastDown()
+    {
+        // Ray cast down above the play area, in the range of the play area
+        Vector3 rayStart = new Vector3(0,10,0);
+        Vector3 down = new Vector3(0,-1,0);
+        rayStart.x = Random.Range(playAreaBoundaries[0][0],playAreaBoundaries[0][1]);
+        rayStart.z = Random.Range(playAreaBoundaries[1][0],playAreaBoundaries[1][0]);
+        
+        Physics.Raycast(rayStart, down, out var hitInfo);
+
+        // if there is no collider hit by the ray, try again
+        if(hitInfo.collider == null)
+        {
+            rayCastDown();
+        }
+        else
+        {   
+            // If the collider hit is NOT the floor, try again
+            if(hitInfo.collider.tag != "Floor")
+            {
+                rayCastDown();
+            }
+            // If the floor was hit, set that as the new target position
+            else
+            {
+                targetDestination = hitInfo.point;
+            }
         }
     }
 }

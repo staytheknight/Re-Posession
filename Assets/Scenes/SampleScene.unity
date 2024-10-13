@@ -1528,6 +1528,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 5498693301607122652, guid: cf3b5f2f66a2d484188f545932fdab62, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6187942201144502789, guid: cf3b5f2f66a2d484188f545932fdab62, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20.56
@@ -4560,7 +4564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6187942201144502789, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.33
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6187942201144502789, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4568,7 +4572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6187942201144502789, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.12
+      value: -15.2
       objectReference: {fileID: 0}
     - target: {fileID: 6187942201144502789, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: m_LocalRotation.w
