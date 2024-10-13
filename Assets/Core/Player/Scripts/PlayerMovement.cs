@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public EnergyManager em;
     public DisplayClickIndicator clickIndicatorScript;
 
+    private Collider colliderHit;
     private Vector3 rayCastPoint;
     private Vector3 target;
     private float targetRadius = 2.0f;
@@ -34,10 +35,11 @@ public class PlayerMovement : MonoBehaviour
         Ray movePosition = camera.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(movePosition, out var hitInfo);
         rayCastPoint = hitInfo.point;
+        colliderHit = hitInfo.collider;
 
         // Originally tried to put this into a click manager but could not get it working in time
-        // Double click detector
-        if (Input.GetMouseButtonDown(0))
+        // Has gate for raycast if the raycast hit the floor, activate move (prevents clicking off play area)
+        if (Input.GetMouseButtonDown(0) && colliderHit == orm.getFloor().GetComponent<Collider>())
         {
             float timeSinceLastClick = Time.time - lastClickTime;
 

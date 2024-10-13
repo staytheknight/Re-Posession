@@ -729,6 +729,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2495405985858565065, guid: 476494217e4676946bdb02b143264933, type: 3}
+      propertyPath: orm
+      value: 
+      objectReference: {fileID: 1845284307}
     - target: {fileID: 3178136502136594806, guid: 476494217e4676946bdb02b143264933, type: 3}
       propertyPath: m_Name
       value: Delivery Zone
@@ -2008,7 +2012,7 @@ GameObject:
   - component: {fileID: 2099927499}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
