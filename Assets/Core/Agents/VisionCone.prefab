@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1066260385130145040}
   - component: {fileID: 4409592464309391404}
   m_Layer: 0
-  m_Name: Vision Cone
+  m_Name: VisionCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

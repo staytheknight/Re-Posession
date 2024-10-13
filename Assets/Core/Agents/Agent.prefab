@@ -336,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   orm: {fileID: 8317574808828161126, guid: 51e7b5e811684f24884cba0dbc88b71d, type: 3}
+  vc: {fileID: 7214504595817221051}
 --- !u!1001 &6202312307497748021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -386,8 +387,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3606287749896998286, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
       propertyPath: m_Name
-      value: Vision Cone
+      value: VisionCone
       objectReference: {fileID: 0}
+    - target: {fileID: 7392238154507983072, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 5498693301607122652, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -396,5 +401,10 @@ PrefabInstance:
 --- !u!4 &6403859208859493157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1066260385130145040, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
+  m_PrefabInstance: {fileID: 6202312307497748021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7214504595817221051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3606287749896998286, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
   m_PrefabInstance: {fileID: 6202312307497748021}
   m_PrefabAsset: {fileID: 0}

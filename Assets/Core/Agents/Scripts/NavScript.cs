@@ -8,6 +8,9 @@ public class NavScript : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public ObjectReferenceManager orm;
 
+    public GameObject vc;
+    public Vision visionScript;
+
     Transform playerTransform;
 
     // Start is called before the first frame update
@@ -15,6 +18,7 @@ public class NavScript : MonoBehaviour
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         getPlayerTransformFromORM();
+        visionScript = vc.GetComponentInChildren<Vision>();
     }
 
     void getPlayerTransformFromORM()
@@ -25,7 +29,11 @@ public class NavScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Follow the player
-        agent.destination = playerTransform.position;
+        
+        if(visionScript.getCanSeeTarget())
+        {
+            // Follow the player
+            agent.destination = playerTransform.position;
+        }
     }
 }

@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class Vision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject target;
+    private bool canSeeTarget;
+
+    void OnTriggerEnter(Collider objCollider)
     {
-        Debug.Log("Starting vision script");
+        if (objCollider == target.GetComponent<Collider>())
+        {
+            canSeeTarget = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerExit(Collider objCollider)
     {
-        
+        if (objCollider == target.GetComponent<Collider>())
+        {
+            canSeeTarget = false;
+        }
     }
 
-    void OnTriggerEnter(Collider colliderObj)
+    public bool getCanSeeTarget()
     {
-        Debug.Log("I see you");
+        return canSeeTarget;
     }
 }
