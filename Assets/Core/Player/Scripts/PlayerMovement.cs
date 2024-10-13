@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
         // When the player gets close enough to the target position, toggle regenerating energy
         if (Mathf.Abs(orm.getPlayerTransform().position.x - target.x) <= targetRadius &&
-            Mathf.Abs(orm.getPlayerTransform().position.y - target.y) <= targetRadius)
+            Mathf.Abs(orm.getPlayerTransform().position.z - target.z) <= targetRadius)
         {
             em.toggleSEnergyReduce = false;
         }

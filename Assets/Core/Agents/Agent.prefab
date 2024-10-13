@@ -335,11 +335,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6bedfd616946f4e8311c14710e4bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: 1070186420196098706}
   orm: {fileID: 8317574808828161126, guid: 51e7b5e811684f24884cba0dbc88b71d, type: 3}
   clickIndicator: {fileID: 6652419289677606794}
   vc: {fileID: 7214504595817221051}
   visionScript: {fileID: 0}
+  targetDestination: {x: 0, y: 0, z: 0}
 --- !u!114 &6652419289677606794
 MonoBehaviour:
   m_ObjectHideFlags: 0
