@@ -790,6 +790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Delivery Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 3178136502136594806, guid: 476494217e4676946bdb02b143264933, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7093121445302235412, guid: 476494217e4676946bdb02b143264933, type: 3}
       propertyPath: m_IsTrigger
       value: 1

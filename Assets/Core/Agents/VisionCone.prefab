@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1066260385130145040}
   - component: {fileID: 4409592464309391404}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VisionCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,6 +145,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: cone
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4664f9196579f354791216c20563c501, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 4664f9196579f354791216c20563c501, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -203,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e63923994fd34787e6730afdac760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!54 &1625793832803495429
 Rigidbody:
   m_ObjectHideFlags: 0

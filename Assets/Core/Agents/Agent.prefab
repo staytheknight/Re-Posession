@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3191185896655308314}
   - component: {fileID: 6414855779161318232}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Eye Beam R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7900688161418963034}
   - component: {fileID: 2017364723669415064}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Eye Beam L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 2592520543356975253}
   - component: {fileID: 1070186420196098706}
   - component: {fileID: 3223214027191724953}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Agent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,6 +337,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   orm: {fileID: 8317574808828161126, guid: 51e7b5e811684f24884cba0dbc88b71d, type: 3}
   vc: {fileID: 7214504595817221051}
+  visionScript: {fileID: 0}
 --- !u!1001 &6202312307497748021
 PrefabInstance:
   m_ObjectHideFlags: 0

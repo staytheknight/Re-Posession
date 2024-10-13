@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3504803544404024607}
   - component: {fileID: 7487707408237079429}
   - component: {fileID: 7626162393340005096}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Necronomicon
   m_TagString: Necronomicon
   m_Icon: {fileID: 0}
