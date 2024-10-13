@@ -36,10 +36,11 @@ public class PlayerMovement : MonoBehaviour
         Physics.Raycast(movePosition, out var hitInfo);
         rayCastPoint = hitInfo.point;
         colliderHit = hitInfo.collider;
+        
 
         // Originally tried to put this into a click manager but could not get it working in time
         // Has gate for raycast if the raycast hit the floor, activate move (prevents clicking off play area)
-        if (Input.GetMouseButtonDown(0) && colliderHit == orm.getFloor().GetComponent<Collider>())
+        if (Input.GetMouseButtonDown(0) && colliderHit.tag == "Floor")
         {
             float timeSinceLastClick = Time.time - lastClickTime;
 

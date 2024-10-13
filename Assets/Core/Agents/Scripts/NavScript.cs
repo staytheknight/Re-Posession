@@ -16,7 +16,7 @@ public class NavScript : MonoBehaviour
 
     Transform parentTransform;                                      // Transform of the obj this script is attached to
     public Vector3 targetDestination;                               // Target destionation for navMesh
-    private float targetRadius = 2.0f;                              // Radius around target position the nav mesh agent will considered arrived
+    private float targetRadius = 10.0f;                              // Radius around target position the nav mesh agent will considered arrived
     float movementRotationRange = 5.0f;                             // Degree in radians the nav mesh agent will rotate it's raycast
 
     // Time management
