@@ -37,6 +37,7 @@ public class NavScript : MonoBehaviour
         {
             // Follow the player
             agent.destination = playerTransform.position;
+            targetDestination = playerTransform.position;
         }
         else
         {
