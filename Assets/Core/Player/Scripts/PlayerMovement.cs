@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public new Camera camera;
     public ObjectReferenceManager orm;
-    public ControlManager cm;
     public EnergyManager em;
     public DisplayClickIndicator clickIndicatorScript;
 
@@ -18,8 +17,9 @@ public class PlayerMovement : MonoBehaviour
     public float defaultMovementSpeed = 3.5f;
     public float fasterMovementSpeed = 6.5f;
 
-    bool singleClick;
-    bool doubleClick;
+    // Click variables
+    public float doubleClickTime = 0.2f;
+    public float lastClickTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,41 +35,25 @@ public class PlayerMovement : MonoBehaviour
         Physics.Raycast(movePosition, out var hitInfo);
         rayCastPoint = hitInfo.point;
 
-
+        // Originally tried to put this into a click manager but could not get it working in time
+        // Double click detector
         if (Input.GetMouseButtonDown(0))
         {
-            bool[] clicks = cm.DoubleClickDetector();
-            singleClick = clicks[0];
-            doubleClick = clicks[1];
-        }
+            float timeSinceLastClick = Time.time - lastClickTime;
 
-        // If single click is detected
-        if(singleClick)
-        {   
-            // If double click is detected
-            if(doubleClick)
+            // If double click and has energy, move faster
+            if(timeSinceLastClick <= doubleClickTime && em.getSpeedEnergy() > 0)
             {
-                // If there is enough energy to 'move faster'
-                if(em.getSpeedEnergy() > 0)
-                {
-                    //Debug.Log("DC!");
-                    moveAgent(fasterMovementSpeed, true);
-                }
-                else
-                {   
-                    //Debug.Log("DC - Not enough energy!");
-                    moveAgent(defaultMovementSpeed, false);
-                }
+                moveAgent(fasterMovementSpeed, true);
             }
+            // If single click move default speed
             else
             {
-                //Debug.Log("Single Click");
                 moveAgent(defaultMovementSpeed, false);
             }
+            
+            lastClickTime = Time.time;
         }
-
-        singleClick = false;
-        doubleClick = false;
 
         // When the player gets close enough to the target position, toggle regenerating energy
         if (Mathf.Abs(orm.getPlayerTransform().position.x - target.x) <= targetRadius &&
@@ -81,9 +65,7 @@ public class PlayerMovement : MonoBehaviour
         // If the player runs out of energy, return to default speed and regen energy
         if(em.getSpeedEnergy() <= 0)
         {
-            em.toggleSEnergyReduce = false;
-            agent.speed = defaultMovementSpeed;
-            clickIndicatorScript.displayClickIndicator(target, false);
+            moveAgent(defaultMovementSpeed, false);
         }
     }
 

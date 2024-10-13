@@ -148,11 +148,12 @@ MonoBehaviour:
   agent: {fileID: 0}
   camera: {fileID: 7781838823719551573, guid: 8e73ac25ad7aca14481752a7d2f12e54, type: 3}
   orm: {fileID: 8317574808828161126, guid: 51e7b5e811684f24884cba0dbc88b71d, type: 3}
-  cm: {fileID: -8290967360269412028, guid: c67ac48e7cc48554a966bec8f04fe1e4, type: 3}
   em: {fileID: 1282631420731068837}
   clickIndicatorScript: {fileID: 2552015265822738639}
   defaultMovementSpeed: 3.5
   fasterMovementSpeed: 6.5
+  doubleClickTime: 0.2
+  lastClickTime: 0
 --- !u!114 &2552015265822738639
 MonoBehaviour:
   m_ObjectHideFlags: 0
