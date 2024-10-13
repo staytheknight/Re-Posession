@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float fasterMovementSpeed = 6.5f;
 
     // Click variables
-    public float doubleClickTime = 0.2f;
+    public float doubleClickTime = 0.25f;
     public float lastClickTime = 0.0f;
 
     // Start is called before the first frame update
