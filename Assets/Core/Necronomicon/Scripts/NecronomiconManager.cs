@@ -6,11 +6,27 @@ public class FollowPlayer : MonoBehaviour
 {
     public ObjectReferenceManager orm;
 
+    private bool followPlayerToggle = false;
+    private Vector3 posOffset = new Vector3(0, 0, 2);
+
     void OnTriggerEnter(Collider colliderObj)
     {
         if (colliderObj == orm.getPlayerObject().GetComponent<CapsuleCollider>())
         {
-            Debug.Log("Player collided");
+            followPlayerToggle = true;
+        }
+    }
+
+    void followPlayer()
+    {
+        transform.position = posOffset + orm.getPlayerTransform().position;
+    }
+
+    void Update()
+    {
+        if (followPlayerToggle)
+        {
+            followPlayer();
         }
     }
 }
