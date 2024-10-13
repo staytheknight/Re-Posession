@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour
     public ObjectReferenceManager orm;
 
     private bool followPlayerToggle = false;
-    private Vector3 posOffset = new Vector3(0, 0, 2);
+    private Vector3 posOffset = new Vector3(0, 0, 1.5f);
 
     void OnTriggerEnter(Collider colliderObj)
     {
