@@ -9,6 +9,7 @@ TagManager:
   - Click Indicator
   - Necronomicon
   - Floor
+  - Agent
   layers:
   - Default
   - TransparentFX

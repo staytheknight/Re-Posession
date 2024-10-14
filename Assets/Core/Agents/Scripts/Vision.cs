@@ -7,6 +7,11 @@ public class Vision : MonoBehaviour
     public GameObject target;
     private bool canSeeTarget;
 
+    void Start()
+    {
+        target = GameObject.FindGameObjectsWithTag("Player")[0];
+    }
+
     void OnTriggerEnter(Collider objCollider)
     {
         if (objCollider == target.GetComponent<Collider>())

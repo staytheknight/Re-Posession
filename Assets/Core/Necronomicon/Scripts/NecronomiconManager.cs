@@ -5,28 +5,45 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public ObjectReferenceManager orm;
+    GameObject player;
+    CollisionListener CL;
+    GameObject targetCarrying;
 
-    private bool followPlayerToggle = false;
     private Vector3 posOffset = new Vector3(0, 0, 1.5f);
 
+    void Start()
+    {   
+        player = GameObject.FindGameObjectsWithTag("Player")[0];
+        CL = player.GetComponent<CollisionListener>();
+    }
+
     void OnTriggerEnter(Collider colliderObj)
-    {
+    {   
+        // If the player collides with the necronomicon, set target carrying to player
         if (colliderObj == orm.getPlayerObject().GetComponent<CapsuleCollider>())
         {
-            followPlayerToggle = true;
+            targetCarrying = player;
         }
     }
 
-    void followPlayer()
+    // follows target carrying
+    void followTarget(GameObject target)
     {
-        transform.position = posOffset + orm.getPlayerTransform().position;
+        if (target != null)
+        {
+            transform.position = posOffset + target.transform.position;
+        }        
     }
 
     void Update()
-    {
-        if (followPlayerToggle)
+    {   
+        GameObject collidedObj = CL.getAgentCollided();
+        if(collidedObj != null)
         {
-            followPlayer();
+            CL.setAgentCollided(null);
+            targetCarrying = collidedObj;
         }
+        followTarget(targetCarrying);
+        
     }
 }

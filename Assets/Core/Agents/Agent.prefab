@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6852529924717044056}
   m_Layer: 2
   m_Name: Agent
-  m_TagString: Untagged
+  m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,7 +342,6 @@ MonoBehaviour:
   vc: {fileID: 7214504595817221051}
   visionScript: {fileID: 0}
   targetDestination: {x: 0, y: 0, z: 0}
-  lastCheckedPos: {x: 0, y: 0, z: 0}
 --- !u!114 &6652419289677606794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,11 +425,33 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 5498693301607122652, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1119087336969599984, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6750687460757561932, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4617030492787901604}
   m_SourcePrefab: {fileID: 100100000, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
+--- !u!1 &845630356362929273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6750687460757561932, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
+  m_PrefabInstance: {fileID: 6202312307497748021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4617030492787901604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845630356362929273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 409e63923994fd34787e6730afdac760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 5498693301607122652, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
 --- !u!4 &6403859208859493157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1066260385130145040, guid: 54195fa75c499c949ad36cec5d57bc8a, type: 3}
