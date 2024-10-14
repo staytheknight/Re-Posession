@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orm: {fileID: 8317574808828161126, guid: 51e7b5e811684f24884cba0dbc88b71d, type: 3}
   speedEnergyImg: {fileID: 0}
+  cursor_point: {fileID: 2800000, guid: 2b184c7a43c433c438262007662a4eb1, type: 3}
+  cursor_click: {fileID: 2800000, guid: 3b533db4d93dde148b6f0093e23b3ec5, type: 3}

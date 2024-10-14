@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
     public ObjectReferenceManager orm;
     private EnergyManager em = null;
     public Image speedEnergyImg;
+
+    public Texture2D cursor_point;
+    public Texture2D cursor_click;
+    Vector2 cursorHotspot = new Vector2(4,0);
     
     public void Start()
     {
@@ -29,6 +33,20 @@ public class UIManager : MonoBehaviour
             // Update the image based on speed energy
             speedEnergyImg.fillAmount = em.getSpeedEnergy() / em.getSpeedEnergyMax();
         }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            updateCursor(cursor_click);
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            updateCursor(cursor_point);
+        }
         
+    }
+
+    public void updateCursor(Texture2D texture)
+    {
+        Cursor.SetCursor(texture, cursorHotspot, CursorMode.Auto);
     }
 }

@@ -3,7 +3,11 @@ guid: 82580be0794139e4cb40e29537e8c7c5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - orm: {instanceID: 0}
+  - speedEnergyImg: {instanceID: 0}
+  - cursor_point: {fileID: 2800000, guid: 2b184c7a43c433c438262007662a4eb1, type: 3}
+  - cursor_click: {fileID: 2800000, guid: 3b533db4d93dde148b6f0093e23b3ec5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
