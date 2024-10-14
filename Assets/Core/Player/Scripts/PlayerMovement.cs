@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public ObjectReferenceManager orm;
     public EnergyManager em;
     public DisplayClickIndicator clickIndicatorScript;
+    public ClickEventListener cel;
 
     private Collider colliderHit;
     private Vector3 rayCastPoint;
@@ -19,44 +20,42 @@ public class PlayerMovement : MonoBehaviour
     public float fasterMovementSpeed = 6.5f;
 
     // Click variables
-    public float doubleClickTime = 0.25f;
+    public float doubleClickTime = 1.5f;
     public float lastClickTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        cel = GetComponentInParent<ClickEventListener>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Casts a ray from the assigned camera to the mouse position
-        Ray movePosition = camera.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(movePosition, out var hitInfo);
-        rayCastPoint = hitInfo.point;
-        colliderHit = hitInfo.collider;
         
-
-        // Originally tried to put this into a click manager but could not get it working in time
-        // Has gate for raycast if the raycast hit the floor, activate move (prevents clicking off play area)
-        if (Input.GetMouseButtonDown(0) && colliderHit.tag == "Floor")
+        if (Input.GetMouseButtonDown(0))
         {
-            float timeSinceLastClick = Time.time - lastClickTime;
+            // Casts a ray from the assigned camera to the mouse position
+            Ray movePosition = camera.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(movePosition, out var hitInfo);
+            rayCastPoint = hitInfo.point;
+            colliderHit = hitInfo.collider;
 
-            // If double click and has energy, move faster
-            if(timeSinceLastClick <= doubleClickTime && em.getSpeedEnergy() > 0)
+            bool doubleClicked = cel.doubleClickTracker();
+            if(colliderHit != null)
             {
-                moveAgent(fasterMovementSpeed, true);
+                if(!doubleClicked && colliderHit.tag == "Floor")
+                {
+                    moveAgent(defaultMovementSpeed, false);
+                }
+                else if(doubleClicked && colliderHit.tag == "Floor")
+                {
+                    moveAgent(fasterMovementSpeed, true);
+                }
             }
-            // If single click move default speed
-            else
-            {
-                moveAgent(defaultMovementSpeed, false);
-            }
-            
-            lastClickTime = Time.time;
         }
+
 
         // When the player gets close enough to the target position, toggle regenerating energy
         if (Mathf.Abs(orm.getPlayerTransform().position.x - target.x) <= targetRadius &&

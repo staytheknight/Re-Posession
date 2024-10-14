@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 282960659794062551}
   - component: {fileID: 8697882778813944442}
   - component: {fileID: -6413956241386582999}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere Indicator
   m_TagString: Click Indicator
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2241f0f3e461e21429332c0a6b6d510d, type: 2}
+  - {fileID: 2100000, guid: 7a86b9bf198053440969a45946f5c9a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

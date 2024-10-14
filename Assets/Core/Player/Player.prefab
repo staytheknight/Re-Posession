@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 184058015927438422}
   - component: {fileID: 2552015265822738639}
   - component: {fileID: 1282631420731068837}
+  - component: {fileID: 6377871642881860239}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -184,3 +185,15 @@ MonoBehaviour:
   speedEnergyDrainRate: 2
   speedEnergyGainRate: 0.25
   toggleSEnergyReduce: 0
+--- !u!114 &6377871642881860239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5498693301607122652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 982c6de73d4a9f7468945fc21fc9232e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
