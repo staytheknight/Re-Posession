@@ -228,7 +228,7 @@ MonoBehaviour:
   intensityRange:
   - 1
   - 2
-  intensityChangePerFrame: 0.1
+  intensityChangePerFrame: 0.01
 --- !u!1 &8463603046184075488
 GameObject:
   m_ObjectHideFlags: 0

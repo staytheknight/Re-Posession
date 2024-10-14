@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -48,5 +49,10 @@ public class UIManager : MonoBehaviour
     public void updateCursor(Texture2D texture)
     {
         Cursor.SetCursor(texture, cursorHotspot, CursorMode.Auto);
+    }
+
+    public void LoadMainLevel()
+    {
+        SceneManager.LoadScene(1);
     }
 }

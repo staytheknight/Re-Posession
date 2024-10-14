@@ -12,6 +12,7 @@ TagManager:
   - Agent
   - Necronomicon Zone
   - DeliveryZone
+  - EndGameUI
   layers:
   - Default
   - TransparentFX
