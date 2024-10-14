@@ -7,10 +7,14 @@ public class DeliveryZoneManager : MonoBehaviour
     public ObjectReferenceManager orm;
 
     void OnTriggerEnter(Collider colliderObj)
-    {
-        if(colliderObj == orm.getNecronomicon().GetComponent<Collider>())
+    {   
+        if (orm.getNecronomicon() != null)
         {
-            Debug.Log("Delivered!");
+            if(colliderObj == orm.getNecronomicon().GetComponent<Collider>())
+            {
+                Debug.Log("Delivered!");
+            }
         }
+
     }
 }

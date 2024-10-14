@@ -8,6 +8,8 @@ public class NavScript : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public ObjectReferenceManager orm;
     public DisplayClickIndicator clickIndicator;                    // For debug visuals
+    GameObject necroZone;
+    GameObject necronomicon;
 
     // Scripts
     public GameObject vc;
@@ -39,14 +41,22 @@ public class NavScript : MonoBehaviour
         visionScript = vc.GetComponentInChildren<Vision>();         // Vision script attached to this object (inside of VisionCone)
 
         eyeColourManager = GetComponent<EyeColourManager>();
+        necroZone = GameObject.FindGameObjectsWithTag("Necronomicon Zone")[0];
+        necronomicon = GameObject.FindGameObjectsWithTag("Necronomicon")[0];
     }
 
     // Update is called once per frame
     void Update()
-    {
-
+    {   
+        // If the agent is carrying the necronomicon, take it back to the necro zone
+        if(necronomicon.GetComponent<NecronomiconManager>().getTargetCarrying() == gameObject)
+        {   
+            eyeColourManager.changeLightColour(Color.green);
+            agent.destination = necroZone.GetComponent<Transform>().position;
+            targetDestination = necroZone.GetComponent<Transform>().position;
+        }
         // If the agent can see the player follow them
-        if(visionScript.getCanSeeTarget())
+        else if(visionScript.getCanSeeTarget())
         {
             eyeColourManager.changeLightColour(Color.magenta);
             // Follow the player

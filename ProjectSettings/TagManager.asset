@@ -10,6 +10,8 @@ TagManager:
   - Necronomicon
   - Floor
   - Agent
+  - Necronomicon Zone
+  - DeliveryZone
   layers:
   - Default
   - TransparentFX

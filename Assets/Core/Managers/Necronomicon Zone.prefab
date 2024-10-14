@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 5959942007856380636}
   - component: {fileID: 9057457800771948686}
   - component: {fileID: 7093121445302235412}
-  - component: {fileID: 2495405985858565065}
-  - component: {fileID: 3571752226938156118}
+  - component: {fileID: 1256404989903254454}
+  - component: {fileID: 5731736805658954363}
   m_Layer: 2
-  m_Name: Delivery Zone
-  m_TagString: DeliveryZone
+  m_Name: Necronomicon Zone
+  m_TagString: Necronomicon Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -107,20 +107,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2495405985858565065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3178136502136594806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ac7a3dd5a59f9c419acd812c9150aac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orm: {fileID: 8317574808828161126, guid: 51e7b5e811684f24884cba0dbc88b71d, type: 3}
---- !u!54 &3571752226938156118
+--- !u!54 &1256404989903254454
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,3 +134,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5731736805658954363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178136502136594806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945dbb8c174df9c4b904a70836d684ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
