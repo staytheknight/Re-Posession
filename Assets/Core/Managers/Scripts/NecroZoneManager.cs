@@ -12,7 +12,11 @@ public class NecroZoneManager : MonoBehaviour
         {
             if(colliderObj == necroCollider)
             {
-                necronomicon.GetComponent<NecronomiconManager>().setTargetCarrying(null);
+                NecronomiconManager nm = necronomicon.GetComponent<NecronomiconManager>();
+                if(nm.getTargetCarrying() != GameObject.FindGameObjectWithTag("Player"))
+                {
+                    necronomicon.GetComponent<NecronomiconManager>().setTargetCarrying(null);
+                }                
             }
         }
 
