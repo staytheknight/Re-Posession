@@ -4669,6 +4669,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 2128067736}
+    - target: {fileID: 1282631420731068837, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
+      propertyPath: speedEnergyGainRate
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2367019824953004193, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: doubleClickTimeLimit
       value: 0.2
