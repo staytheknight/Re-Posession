@@ -6,6 +6,7 @@ public class EyeColourManager : MonoBehaviour
 {
     Light[] lights;
     Renderer meshRenderer;
+    SpriteRenderer ghostSprite;
 
     // This would be better as a dictionary, I just didn't have enough time to figure it out
     public Material red;
@@ -17,6 +18,7 @@ public class EyeColourManager : MonoBehaviour
     {
         lights = this.GetComponentsInChildren<Light>();
         meshRenderer = this.GetComponent<Renderer>();
+        ghostSprite = this.GetComponentInChildren<SpriteRenderer>();
     }
 
     public void changeLightColour(Color colour)
@@ -30,14 +32,17 @@ public class EyeColourManager : MonoBehaviour
         if (colour == Color.white)
         {
             changeMeshMaterial(red);
+            ghostSprite.color = Color.red;
         }
         else if (colour == Color.green)
         {
-            changeMeshMaterial(green);  
+            changeMeshMaterial(green);
+            ghostSprite.color = Color.green;  
         }
         else if (colour == Color.magenta)
         {
             changeMeshMaterial(magenta);
+            ghostSprite.color = Color.magenta;
         }
         
     }

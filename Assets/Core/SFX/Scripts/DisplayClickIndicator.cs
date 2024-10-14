@@ -27,12 +27,10 @@ public class DisplayClickIndicator : MonoBehaviour
     {
         if(doubleClicked)
         {
-            Debug.Log("double clicked");
             clickLocObject.GetComponentInChildren<SpriteRenderer>().color = Color.blue;
         }
         else
         {
-            Debug.Log("single clicked");
             clickLocObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         }
     }
