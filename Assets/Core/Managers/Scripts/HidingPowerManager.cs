@@ -8,11 +8,12 @@ public class HidingPowerManager : MonoBehaviour
     GameObject wallHovered = null;
 
     [SerializeField] public new Camera camera;
+    GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -57,7 +58,13 @@ public class HidingPowerManager : MonoBehaviour
         {
             if (wallClicked.GetComponent<HidingWall>().getPlayerCollided())
             {
-            
+                    player.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                    player.GetComponent<CapsuleCollider>().enabled = false;
+                    player.GetComponent<Renderer>().enabled = false;
+                    player.GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    player.GetComponent<Light>().enabled = false;
+
+                    wallClicked.GetComponent<HidingWall>().setShakeBool(true);
             }
         }
 

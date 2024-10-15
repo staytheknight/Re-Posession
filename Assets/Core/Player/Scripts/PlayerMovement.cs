@@ -73,9 +73,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveAgent(Vector3 destination, float movementSpeed, bool doubleClicked)
     {
-        agent.SetDestination(destination);  // THIS NEEDS TO BE MOVED OUT OF THE FUNCTION AND PASSED AS PARAMETER
-        target = destination;
-        agent.speed = movementSpeed;
+        if (agent != null)
+        {
+            if (agent.enabled)
+            {
+                agent.SetDestination(destination);
+                agent.speed = movementSpeed;
+            }
+        }
+        target = destination;        
         clickIndicatorScript.displayClickIndicator(destination, doubleClicked);
         em.toggleSEnergyReduce = doubleClicked;
     }

@@ -90,4 +90,14 @@ public class HidingWall : MonoBehaviour
     {
         playerCollided = b;
     }
+
+    public bool getShakeBool()
+    {
+        return shakeBool;
+    }
+
+    public void setShakeBool(bool b)
+    {
+        shakeBool = b;
+    }
 }
