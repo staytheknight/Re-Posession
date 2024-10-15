@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 target;
     private float targetRadius = 2.0f;
     public float defaultMovementSpeed = 3.5f;
-    public float fasterMovementSpeed = 6.5f;
+    public float fasterMovementSpeed = 7.0f;
 
     // Click variables
     public float doubleClickTime = 1.5f;
@@ -89,6 +89,11 @@ public class PlayerMovement : MonoBehaviour
     public float getDefaultMovementSpeed()
     {
         return defaultMovementSpeed;
+    }
+
+    public float getFastMovementSpeed()
+    {
+        return fasterMovementSpeed;
     }
 
 }

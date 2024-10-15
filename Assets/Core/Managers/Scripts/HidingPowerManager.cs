@@ -9,6 +9,7 @@ public class HidingPowerManager : MonoBehaviour
 
     [SerializeField] public new Camera camera;
     GameObject player;
+    ClickEventListener cel;
 
     bool playerInWall = false;
     GameObject playerInWallObj = null;
@@ -22,6 +23,7 @@ public class HidingPowerManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        cel = player.GetComponent<ClickEventListener>();
     }
 
     // Update is called once per frame
@@ -46,6 +48,7 @@ public class HidingPowerManager : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(1))
         {
+            bool doubleClicked = cel.doubleClickTracker();
             // Casts a ray from the assigned camera to the mouse position
             Ray clickedPosition = camera.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(clickedPosition, out hitInfo);
@@ -55,8 +58,17 @@ public class HidingPowerManager : MonoBehaviour
             {
                 // Store a reference to that wall obj
                 wallClicked = hitInfo.collider.gameObject;
-                // get the default movement speed
-                float movementSpeed = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().getDefaultMovementSpeed();
+
+                float movementSpeed;
+                if(doubleClicked)
+                {
+                    movementSpeed = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().getFastMovementSpeed();
+                }
+                else
+                {
+                    movementSpeed = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().getDefaultMovementSpeed();
+                }
+                 
                 // Move the player towards the wall
                 GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().moveAgent(hitInfo.point, movementSpeed, false);
             }

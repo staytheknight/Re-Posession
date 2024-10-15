@@ -3681,6 +3681,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1845284307}
     - target: {fileID: 9203416515676216835, guid: ea8e139c2cbd07a4b96557d5c929c618, type: 3}
+      propertyPath: hideEnergyImg
+      value: 
+      objectReference: {fileID: 1168138866}
+    - target: {fileID: 9203416515676216835, guid: ea8e139c2cbd07a4b96557d5c929c618, type: 3}
       propertyPath: speedEnergyImg
       value: 
       objectReference: {fileID: 1833833719}
@@ -3950,6 +3954,17 @@ Transform:
   - {fileID: 1568892589}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1168138866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5524141813304306952, guid: e1a2f0a91df80d84690eb261ef399b87, type: 3}
+  m_PrefabInstance: {fileID: 1833833717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1187275775
 GameObject:
   m_ObjectHideFlags: 0
@@ -4922,6 +4937,14 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 2128067736}
+    - target: {fileID: 184058015927438422, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
+      propertyPath: fasterMovementSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1070186420196098706, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1282631420731068837, guid: fb67968ed0a5ff54292333a884c4752d, type: 3}
       propertyPath: speedEnergyGainRate
       value: 0.5
