@@ -6,30 +6,59 @@ public class HidingWall : MonoBehaviour
 {
     bool shakeBool = false;
     private Vector3 originalPosition;
-    private Vector2 offsetPositionRange = new Vector2(-5.0f,5.0f);
+    private Vector2 offsetPositionRange = new Vector2(-.2f,.2f);
+
+    [SerializeField] public Material originalMaterial;
+    [SerializeField] public Material shakeMaterial;
+    [SerializeField] public Material hoveredMaterial;
+
+    [SerializeField] public HidingPowerManager hpm;
+
+    bool playerCollided = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        originalPosition = this.GetComponentInParent<Transform>().position;    
+        originalPosition = this.GetComponentInParent<Transform>().position;
+        originalMaterial = this.GetComponentInParent<Renderer>().material;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // If the shake boolean is turned on from a collision, shake the wall and turn it magenta
         if(shakeBool)
         {
             shake();
+            this.GetComponentInParent<Renderer>().material = shakeMaterial;
         }
+        // If the wall has been hovered over by player cursor, turn it blue
+        else if(hpm.getWallHovered() == this.GetComponentInParent<Collider>().gameObject)
+        {
+            this.GetComponentInParent<Renderer>().material = hoveredMaterial;
+        }
+        // Default wall position and colour / texture
         else
         {
             this.GetComponentInParent<Transform>().position = originalPosition;
+            this.GetComponentInParent<Renderer>().material = originalMaterial;
         }
     }
 
-    public void onCollision(Collision c)
+    public void OnCollisionEnter(Collision c)
     {
-        // Call function in wall power manager
+        if(c.collider.tag == "Player" && hpm.getWallClicked() == this.gameObject)
+        {
+            playerCollided = true;
+        }
+    }
+
+    public void OnTriggerEnter(Collider c)
+    {
+        if(c.GetComponent<Collider>().tag == "Player" && hpm.getWallClicked() == this.gameObject)
+        {
+            playerCollided = true;
+        }   
     }
 
     void shake()
@@ -48,5 +77,15 @@ public class HidingWall : MonoBehaviour
             this.GetComponentInParent<Transform>().position = this.GetComponentInParent<Transform>().position + offset;
         }
         
+    }
+
+    public bool getPlayerCollided()
+    {
+        return playerCollided;
+    }
+
+    public void setPlayerCollided(bool b)
+    {
+        playerCollided = b;
     }
 }

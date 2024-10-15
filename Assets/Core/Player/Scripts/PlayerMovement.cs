@@ -47,11 +47,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(!doubleClicked && colliderHit.tag == "Floor")
                 {
-                    moveAgent(defaultMovementSpeed, false);
+                    moveAgent(rayCastPoint, defaultMovementSpeed, false);
                 }
                 else if(doubleClicked && colliderHit.tag == "Floor")
                 {
-                    moveAgent(fasterMovementSpeed, true);
+                    moveAgent(rayCastPoint, fasterMovementSpeed, true);
                 }
             }
         }
@@ -67,17 +67,22 @@ public class PlayerMovement : MonoBehaviour
         // If the player runs out of energy, return to default speed and regen energy
         if(em.getSpeedEnergy() <= 0)
         {
-            moveAgent(defaultMovementSpeed, false);
+            moveAgent(rayCastPoint, defaultMovementSpeed, false);
         }
     }
 
-    private void moveAgent(float movementSpeed, bool doubleClicked)
+    public void moveAgent(Vector3 destination, float movementSpeed, bool doubleClicked)
     {
-        agent.SetDestination(rayCastPoint);
-        target = rayCastPoint;
+        agent.SetDestination(destination);  // THIS NEEDS TO BE MOVED OUT OF THE FUNCTION AND PASSED AS PARAMETER
+        target = destination;
         agent.speed = movementSpeed;
-        clickIndicatorScript.displayClickIndicator(rayCastPoint, doubleClicked);
+        clickIndicatorScript.displayClickIndicator(destination, doubleClicked);
         em.toggleSEnergyReduce = doubleClicked;
+    }
+
+    public float getDefaultMovementSpeed()
+    {
+        return defaultMovementSpeed;
     }
 
 }
