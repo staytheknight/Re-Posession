@@ -14,6 +14,7 @@ TagManager:
   - DeliveryZone
   - EndGameUI
   - HidingWall
+  - HidingPowerManager
   layers:
   - Default
   - TransparentFX

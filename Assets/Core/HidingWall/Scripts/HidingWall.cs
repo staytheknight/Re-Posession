@@ -21,6 +21,7 @@ public class HidingWall : MonoBehaviour
     {
         originalPosition = this.GetComponentInParent<Transform>().position;
         originalMaterial = this.GetComponentInParent<Renderer>().material;
+        hpm = GameObject.FindWithTag("HidingPowerManager").GetComponent<HidingPowerManager>();
     }
 
     // Update is called once per frame
@@ -33,8 +34,9 @@ public class HidingWall : MonoBehaviour
             this.GetComponentInParent<Renderer>().material = shakeMaterial;
         }
         // If the wall has been hovered over by player cursor, turn it blue
-        else if(hpm.getWallHovered() == this.GetComponentInParent<Collider>().gameObject)
+        else if(hpm.getWallHovered() == this.gameObject)
         {
+            shake();
             this.GetComponentInParent<Renderer>().material = hoveredMaterial;
         }
         // Default wall position and colour / texture
