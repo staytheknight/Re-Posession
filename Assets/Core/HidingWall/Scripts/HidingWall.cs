@@ -20,7 +20,7 @@ public class HidingWall : MonoBehaviour
     void Start()
     {
         originalPosition = this.GetComponentInParent<Transform>().position;
-        originalMaterial = this.GetComponentInParent<Renderer>().material;
+        //originalMaterial = this.GetComponentInParent<Renderer>().material;
         hpm = GameObject.FindWithTag("HidingPowerManager").GetComponent<HidingPowerManager>();
     }
 
