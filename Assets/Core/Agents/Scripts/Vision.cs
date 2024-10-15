@@ -7,9 +7,20 @@ public class Vision : MonoBehaviour
     public GameObject target;
     private bool canSeeTarget;
 
+    HidingPowerManager hpm;
+
     void Start()
     {
         target = GameObject.FindGameObjectsWithTag("Player")[0];
+        hpm = GameObject.FindGameObjectWithTag("HidingPowerManager").GetComponent<HidingPowerManager>();
+    }
+
+    void Update()
+    {
+        if(hpm.getPlayerInWall())
+        {
+            canSeeTarget = false;
+        }
     }
 
     void OnTriggerEnter(Collider objCollider)

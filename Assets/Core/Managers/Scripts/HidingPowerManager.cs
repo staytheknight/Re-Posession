@@ -10,6 +10,14 @@ public class HidingPowerManager : MonoBehaviour
     [SerializeField] public new Camera camera;
     GameObject player;
 
+    bool playerInWall = false;
+    GameObject playerInWallObj = null;
+
+    float hidingEnergy = 1000.0f;
+    float hidingEnergyMax = 1000.0f;
+    [SerializeField] float hidingEnergyDrainRate = 2.0f;
+    [SerializeField] float hidingEnergyGainRate = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +42,7 @@ public class HidingPowerManager : MonoBehaviour
                 wallClicked.GetComponent<HidingWall>().setPlayerCollided(false);
             }
             wallClicked = null;
+            unHidePlayer();
         }
         if(Input.GetMouseButtonDown(1))
         {
@@ -55,21 +64,71 @@ public class HidingPowerManager : MonoBehaviour
 
 
         if (wallClicked != null)
-        {
+        {   
+            // If the player collided with the wall clicked 'hide' in the wall
             if (wallClicked.GetComponent<HidingWall>().getPlayerCollided())
             {
-                    player.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
-                    player.GetComponent<CapsuleCollider>().enabled = false;
-                    player.GetComponent<Renderer>().enabled = false;
-                    player.GetComponentInChildren<SpriteRenderer>().enabled = false;
-                    player.GetComponent<Light>().enabled = false;
+                togglePlayerComponents(false);
+                playerInWall = true;
+                playerInWallObj = wallClicked;
 
-                    wallClicked.GetComponent<HidingWall>().setShakeBool(true);
+                wallClicked.GetComponent<HidingWall>().setShakeBool(true);
             }
+        }
+
+        if(playerInWall)
+        {
+            reduceHidingEnergy();
+        }
+        else
+        {
+            increaseHidingEnergy();
+        }
+
+        if(hidingEnergy <= 0)
+        {
+            unHidePlayer();
         }
 
         //Debug.Log("Wall Hovered: " + wallHovered + " ,Wall Clicked: " + wallClicked);
 
+    }
+
+    void togglePlayerComponents(bool toggle)
+    {
+        player.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = toggle;
+        player.GetComponent<CapsuleCollider>().enabled = toggle;
+        player.GetComponent<Renderer>().enabled = toggle;
+        player.GetComponentInChildren<SpriteRenderer>().enabled = toggle;
+        player.GetComponent<Light>().enabled = toggle;
+    }
+
+    void unHidePlayer()
+    {
+        playerInWall = false;
+        if (playerInWallObj != null) 
+        {
+            playerInWallObj.GetComponent<HidingWall>().setShakeBool(false);
+        }            
+        togglePlayerComponents(true);
+        player.GetComponent<UnityEngine.AI.NavMeshAgent>().speed = player.GetComponent<PlayerMovement>().getDefaultMovementSpeed();
+    }
+
+    // TODO: Energy is used for hiding and speed boost, make generic energy management code
+    public void reduceHidingEnergy()
+    {
+        if (hidingEnergy > 0)
+        {
+            hidingEnergy -= hidingEnergyDrainRate;
+        }
+    }
+
+    public void increaseHidingEnergy()
+    {
+        if (hidingEnergy < hidingEnergyMax)
+        {
+            hidingEnergy += hidingEnergyGainRate;
+        }
     }
 
     public GameObject getWallHovered()
@@ -80,5 +139,20 @@ public class HidingPowerManager : MonoBehaviour
     public GameObject getWallClicked()
     {
         return wallClicked;
+    }
+
+    public bool getPlayerInWall()
+    {
+        return playerInWall;
+    }
+
+    public float getHidingEnergy()
+    {
+        return hidingEnergy;
+    }
+
+    public float getHidingEnergyMax()
+    {
+        return hidingEnergyMax;
     }
 }

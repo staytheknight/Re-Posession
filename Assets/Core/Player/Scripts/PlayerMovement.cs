@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         }
         target = destination;        
         clickIndicatorScript.displayClickIndicator(destination, doubleClicked);
-        em.toggleSEnergyReduce = doubleClicked;
+        em.toggleSEnergyReduce = doubleClicked;                                         //Reduces movement energy if double clicked
     }
 
     public float getDefaultMovementSpeed()
