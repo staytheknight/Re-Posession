@@ -10,6 +10,7 @@ public class HidingPowerManager : MonoBehaviour
     [SerializeField] public new Camera camera;
     GameObject player;
     ClickEventListener cel;
+    CollisionListener playerCL;
 
     bool playerInWall = false;
     GameObject playerInWallObj = null;
@@ -24,6 +25,7 @@ public class HidingPowerManager : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         cel = player.GetComponent<ClickEventListener>();
+        playerCL = player.GetComponent<CollisionListener>();
     }
 
     // Update is called once per frame
@@ -34,7 +36,19 @@ public class HidingPowerManager : MonoBehaviour
         if(hitInfo.collider != null)
         {
             wallHovered = hitInfo.collider.gameObject;
-        }        
+        }
+
+        if (playerCL.getAgentCollided() != null)
+        {
+            if (playerCL.getAgentCollided().tag == "Agent")
+            {
+                GameObject nearestWall = findNearestHidingWall();
+                wallClicked = nearestWall;
+                Vector3 nearestWallPos = nearestWall.GetComponent<Transform>().position;
+                GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().moveAgent(nearestWallPos, 1000.0f, false);
+            }   
+        }
+
 
         // If the player left clicks, clear the wall clicked
         if(Input.GetMouseButtonDown(0))
@@ -70,7 +84,7 @@ public class HidingPowerManager : MonoBehaviour
                 }
                  
                 // Move the player towards the wall
-                GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().moveAgent(hitInfo.point, movementSpeed, false);
+                GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().moveAgent(hitInfo.point, movementSpeed, doubleClicked);
             }
         }
 
@@ -124,6 +138,27 @@ public class HidingPowerManager : MonoBehaviour
         }            
         togglePlayerComponents(true);
         player.GetComponent<UnityEngine.AI.NavMeshAgent>().speed = player.GetComponent<PlayerMovement>().getDefaultMovementSpeed();
+    }
+    
+    // TODO: Make radial raycast instead of distance from transform
+    // Finds the nearest wall to the player - this is better done with a radial raycast around the player
+    // as the current way uses the center of the transform which is not the most accurate way
+    // I just didn't have time to make it a radial raycast
+    public GameObject findNearestHidingWall()
+    {
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("HidingWall");
+        float smallestDistance = 999999.9f;
+        GameObject closestWall = walls[0];
+        foreach(GameObject wall in walls)
+        {
+            float distance = Vector3.Distance(wall.GetComponent<Transform>().position,player.GetComponent<Transform>().position);
+            if (distance <= smallestDistance)
+            {
+                smallestDistance = distance;
+                closestWall = wall;
+            }
+        }
+        return closestWall;
     }
 
     // TODO: Energy is used for hiding and speed boost, make generic energy management code
