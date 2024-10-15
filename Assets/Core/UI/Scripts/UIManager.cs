@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public ObjectReferenceManager orm;
-    private EnergyManager em = null;
-    public Image speedEnergyImg;
+    [SerializeField] public ObjectReferenceManager orm;
+    [SerializeField] private EnergyManager em = null;
+    [SerializeField] private HidingPowerManager hpm = null;
+    [SerializeField] public Image speedEnergyImg;
+    [SerializeField] public Image hideEnergyImg;
 
-    public Texture2D cursor_point;
-    public Texture2D cursor_click;
+    [SerializeField] public Texture2D cursor_point;
+    [SerializeField] public Texture2D cursor_click;
     Vector2 cursorHotspot = new Vector2(4,0);
     
     public void Start()
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
     public void getPlayerObjectFromORM()
     {
         em = orm.getPlayerObject().GetComponent<EnergyManager>();
+        hpm = GameObject.FindGameObjectWithTag("HidingPowerManager").GetComponent<HidingPowerManager>();
     }
 
     public void Update()
@@ -33,13 +36,15 @@ public class UIManager : MonoBehaviour
         {
             // Update the image based on speed energy
             speedEnergyImg.fillAmount = em.getSpeedEnergy() / em.getSpeedEnergyMax();
+            hideEnergyImg.fillAmount = hpm.getHidingEnergy() / hpm.getHidingEnergyMax();
         }
 
-        if(Input.GetMouseButtonDown(0))
+        // Update the cursor image based on player clicks
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             updateCursor(cursor_click);
         }
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
         {
             updateCursor(cursor_point);
         }

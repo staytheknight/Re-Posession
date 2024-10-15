@@ -13,6 +13,7 @@ public class DeliveryZoneManager : MonoBehaviour
             if(colliderObj == orm.getNecronomicon().GetComponent<Collider>())
             {
                 //Debug.Log("Delivered!");
+                
                 GameObject.FindWithTag("EndGameUI").GetComponent<Canvas>().enabled = true;
             }
         }

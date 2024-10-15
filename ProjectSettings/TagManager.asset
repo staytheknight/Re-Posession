@@ -13,6 +13,8 @@ TagManager:
   - Necronomicon Zone
   - DeliveryZone
   - EndGameUI
+  - HidingWall
+  - HidingPowerManager
   layers:
   - Default
   - TransparentFX

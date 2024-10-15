@@ -7,10 +7,10 @@ public class EnergyManager : MonoBehaviour
     private float speedEnergy = 1000.0f;
     private float speedEnergyMax = 1000.0f;
     public float speedEnergyDrainRate = 2.0f;
-    public float speedEnergyGainRate = 0.25f;
+    public float speedEnergyGainRate = 0.5f;
     public bool toggleSEnergyReduce = false;
 
-
+    // TODO: Energy is used for hiding and speed boost, make generic energy management code
     public void reduceSpeedEnergy()
     {
         if (speedEnergy > 0)
@@ -28,7 +28,17 @@ public class EnergyManager : MonoBehaviour
     }
 
     public void Update()
-    {
+    {   
+        // If the player is in the wall, regenerate speed energy faster
+        if(GameObject.FindGameObjectWithTag("HidingPowerManager").GetComponent<HidingPowerManager>().getPlayerInWall())
+        {
+            speedEnergyGainRate = 1.0f;
+        }
+        else
+        {
+            speedEnergyGainRate = 0.5f;
+        }
+
         if(toggleSEnergyReduce)
         {
             reduceSpeedEnergy();

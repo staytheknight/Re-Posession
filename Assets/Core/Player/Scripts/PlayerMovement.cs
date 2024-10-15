@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 target;
     private float targetRadius = 2.0f;
     public float defaultMovementSpeed = 3.5f;
-    public float fasterMovementSpeed = 6.5f;
+    public float fasterMovementSpeed = 7.0f;
 
     // Click variables
     public float doubleClickTime = 1.5f;
@@ -47,11 +47,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(!doubleClicked && colliderHit.tag == "Floor")
                 {
-                    moveAgent(defaultMovementSpeed, false);
+                    moveAgent(rayCastPoint, defaultMovementSpeed, false);
                 }
                 else if(doubleClicked && colliderHit.tag == "Floor")
                 {
-                    moveAgent(fasterMovementSpeed, true);
+                    moveAgent(rayCastPoint, fasterMovementSpeed, true);
                 }
             }
         }
@@ -67,17 +67,33 @@ public class PlayerMovement : MonoBehaviour
         // If the player runs out of energy, return to default speed and regen energy
         if(em.getSpeedEnergy() <= 0)
         {
-            moveAgent(defaultMovementSpeed, false);
+            moveAgent(rayCastPoint, defaultMovementSpeed, false);
         }
     }
 
-    private void moveAgent(float movementSpeed, bool doubleClicked)
+    public void moveAgent(Vector3 destination, float movementSpeed, bool doubleClicked)
     {
-        agent.SetDestination(rayCastPoint);
-        target = rayCastPoint;
-        agent.speed = movementSpeed;
-        clickIndicatorScript.displayClickIndicator(rayCastPoint, doubleClicked);
-        em.toggleSEnergyReduce = doubleClicked;
+        if (agent != null)
+        {
+            if (agent.enabled)
+            {
+                agent.SetDestination(destination);
+                agent.speed = movementSpeed;
+            }
+        }
+        target = destination;        
+        clickIndicatorScript.displayClickIndicator(destination, doubleClicked);
+        em.toggleSEnergyReduce = doubleClicked;                                         //Reduces movement energy if double clicked
+    }
+
+    public float getDefaultMovementSpeed()
+    {
+        return defaultMovementSpeed;
+    }
+
+    public float getFastMovementSpeed()
+    {
+        return fasterMovementSpeed;
     }
 
 }
