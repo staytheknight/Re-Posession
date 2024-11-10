@@ -1,6 +1,6 @@
 Platform: Unity 2022.3.50f1 <DX11>
 
-Created from August 11th to August 14th 2024
+Created from October 11th to October 14th 2024
 
 Project to refresh my skills with the Unity Engine & C#
 
